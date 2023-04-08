@@ -1,6 +1,6 @@
 import React from 'react';
 import Order from '../Order/Order';
-import styles from './OrdersList.module.css';
+import styles from './OrderList.module.css';
 
 interface OrderData {
   id: number;
