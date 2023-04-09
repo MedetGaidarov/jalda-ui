@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import OrdersList from '../../components/OrderList/OrderList';
 import styles from './OrderPage.module.css';
+import { fetchOrders } from '../../services/orderService';
 
 const mockOrders = [
   {
@@ -37,10 +38,26 @@ const mockOrders = [
 
 
 const OrdersPage: React.FC = () => {
+
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const data = await fetchOrders();
+        setOrders(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    getOrders();
+  }, []);
+  
   return (
     <div className={styles.ordersPage}>
       <h1>Orders</h1>
-      <OrdersList orders={mockOrders} />
+      <OrdersList orders={orders} />
     </div>
   );
 };
